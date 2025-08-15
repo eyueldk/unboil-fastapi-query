@@ -5,11 +5,14 @@ from pydantic import BaseModel, Field, create_model
 from sqlalchemy.orm import InstrumentedAttribute, ColumnProperty
 
 __all__ = [
+    "QueryRequest",
     "QueryDepends",
     "FilterOperation",
     "SortOrder",
     "build_query",
 ]
+
+QueryRequest = BaseModel
 
 def QueryDepends(model: type[BaseModel]) -> BaseModel:
     def f(query = Query()):
@@ -40,7 +43,7 @@ class SortOrder(StrEnum):
 def build_query(
     filters: dict[InstrumentedAttribute, Literal["*"] | FilterOperation | list[FilterOperation]] = {},
     sortables: list[InstrumentedAttribute] = [],
-):
+) -> type[QueryRequest]:
 
     field_definitions = {}
 
@@ -77,5 +80,8 @@ def build_query(
             Field(default_factory=list, json_schema_extra={"uniqueItems": True}),
         )
 
-    return create_model("Query", **field_definitions)
-    
+    return create_model(
+        "QueryRequest", 
+        __base__=QueryRequest,
+        **field_definitions
+    )

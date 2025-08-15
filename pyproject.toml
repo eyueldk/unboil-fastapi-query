@@ -1,6 +1,6 @@
 [project]
 name = "unboil-fastapi-query"
-version = "0.1.0"
+version = "0.1.1"
 description = "A library providing tools for easily querying a FastAPI application."
 readme = "README.md"
 authors = [
