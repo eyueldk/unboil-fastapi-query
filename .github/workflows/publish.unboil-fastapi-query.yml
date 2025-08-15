@@ -1,0 +1,17 @@
+name: Publish package
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+
+  publish:
+    uses: ./.github/workflows/publish.python.package.yml
+    permissions:
+      id-token: write
+    secrets: inherit
+    with:
+      environment-name: pypi
+      environment-url: https://pypi.org/p/unboil-fastapi-query
+

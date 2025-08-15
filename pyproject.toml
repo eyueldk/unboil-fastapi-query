@@ -1,0 +1,45 @@
+[project]
+name = "unboil-fastapi-query"
+version = "0.1.0"
+description = "A library providing tools for easily querying a FastAPI application."
+readme = "README.md"
+authors = [
+    { name = "eyueldk" }
+]
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["unboil", "fastapi", "query", "filter", "pagination", "sorting", "sqlalchemy"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "fastapi>=0.115.0",
+    "sqlalchemy>=2.0.0",
+]
+
+[project.urls]
+homepage = "https://github.com/eyueldk/unboil-fastapi-query"
+repository = "https://github.com/eyueldk/unboil-fastapi-query"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/unboil_fastapi_query"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=src/unboil_fastaspi_query --cov-report=term-missing"
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "sqlalchemy[sqlite]>=2.0.42",
+    "uvicorn>=0.35.0",
+]
