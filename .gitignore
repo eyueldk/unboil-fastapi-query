@@ -202,5 +202,5 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# playground sqlite db
-db.sqlite
+# example db
+sqlite.db
