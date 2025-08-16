@@ -73,4 +73,10 @@ def apply_query(statement: Select[tuple[T]], query: BaseModel):
                 else:
                     assert_never(sort_order)
 
+        elif field == "offset":
+            statement = statement.offset(value)
+
+        elif field == "limit":
+            statement = statement.limit(value)
+
     return statement

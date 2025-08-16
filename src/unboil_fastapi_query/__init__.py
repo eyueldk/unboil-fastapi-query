@@ -43,6 +43,7 @@ class SortOrder(StrEnum):
 def build_query(
     filters: dict[InstrumentedAttribute, Literal["*"] | FilterOperation | list[FilterOperation]] = {},
     sortables: list[InstrumentedAttribute] = [],
+    max_results: int | None = 100,
 ) -> type[QueryRequest]:
 
     field_definitions = {}
@@ -79,7 +80,17 @@ def build_query(
             list[Literal[*options]],
             Field(default_factory=list, json_schema_extra={"uniqueItems": True}),
         )
-
+        
+    # add range
+    field_definitions["offset"] = (
+        int | None,
+        Field(default=0, ge=0)
+    )
+    field_definitions["limit"] = (
+        int,
+        Field(default=min(25, max_results or 25), ge=0, le=max_results)
+    )
+    
     return create_model(
         "QueryRequest", 
         __base__=QueryRequest,

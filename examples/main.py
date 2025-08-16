@@ -29,7 +29,8 @@ ExampleQuery = build_query(
     },
     sortables=[
         Example.name,
-    ]
+    ],
+    max_results=200
 )
 
 @app.get("/", response_model=list[ExampleRead])
